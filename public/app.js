@@ -10,14 +10,18 @@
 var PeopleApp = React.createClass({
   getInitialState: function() {
     return {
-
+      persons: [];
+      keyword: 'bears'
     }
   },
   loadPeopleFromServer: function() {
     $.ajax({
-
+      url: this.props.url + this.state.keyword,
+      method: 'GET'
     }).done(function(data){
-      //data
+      self.setState ({
+        persons: data
+      })
     })
   },
   componentDidMount: function() {
