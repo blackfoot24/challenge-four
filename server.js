@@ -22,7 +22,13 @@ app.set('view engine', 'ejs');
 var port = process.env.PORT || 8080;
 
 app.get('/', function(req, res){
-  res.render('index')
+  Person.find(function(err, data){
+    if(err){
+      console.log(err)
+    } else {
+      res.render('index', {index: data})
+    }
+  })
 });
 
 

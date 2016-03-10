@@ -37,7 +37,7 @@ var setUpPeople = function(){
           for (var i = 0; i < 50; i++) {
               var person = new Person();
               person.bank_account = faker.finance.amount();
-              person.birth_date = faker.date.past(),
+              person.birth_date = faker.date.between('1/1/1900', '1/1/2000'),
               person.country = faker.address.country(),
               person.img = faker.image.avatar(),
               person.username = faker.internet.userName(),
@@ -68,8 +68,17 @@ router.route('/people')
       if(err){
         return next(err);
       } else {
-        res.json(data)
+        var myPeopleArray = people.map(function(people){
+          return {
+            username: people.username,
+            img: people.img,
+            country: people.country,
+            birth_date: people.birth_date,
+
+          }
+        }); 
       }
+      res.json(myPeopleArray)
     })
   });
 
